@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobStat — Статистика вакансий</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <div class="logo">Job<span>Stat</span></div>
+            <nav class="nav" role="tablist">
+                <button class="nav-btn active" data-section="search" role="tab" aria-selected="true" type="button">Поиск</button>
+                <button class="nav-btn" data-section="compare" role="tab" aria-selected="false" type="button">Сравнение</button>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Search Section -->
+            <section id="section-search" class="section" role="tabpanel">
+                <div class="hero">
+                    <h1>Аналитика рынка <span>вакансий</span></h1>
+                    <p>Введите название профессии и получите подробную статистику по всем регионам России на основе данных hh.ru</p>
+                    <form id="searchForm" class="search-form">
+                        <input type="text" id="query" placeholder="Например: Python разработчик" required aria-label="Название профессии">
+                        <button type="submit" class="btn">Анализировать</button>
+                    </form>
+                </div>
+
+                <div id="searchLoading" class="loading hidden">
+                    <div class="spinner"></div>
+                    <p>Собираем данные с hh.ru...</p>
+                </div>
+
+                <div id="searchError" class="error hidden" role="alert"></div>
+
+                <div id="results" class="hidden">
+                    <div class="result-query">«<span id="resultTitle"></span>»</div>
+
+                    <div class="stats-row" id="statsRow"></div>
+
+                    <div class="result-section">
+                        <h2>Топ регионов по <span>количеству</span> вакансий</h2>
+                        <div class="table-wrap" id="topCitiesCount"></div>
+                    </div>
+
+                    <div class="result-section">
+                        <h2>Топ регионов по <span>уровню зарплат</span></h2>
+                        <div class="table-wrap" id="topCitiesSalary"></div>
+                    </div>
+
+                    <div class="result-section">
+                        <h2>Карта <span>России</span></h2>
+                        <div class="map-wrap">
+                            <div id="heatmap"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Compare Section -->
+            <section id="section-compare" class="section hidden" role="tabpanel">
+                <div class="hero">
+                    <h1>Сравнение <span>профессий</span></h1>
+                    <p>Сравните две профессии по ключевым метрикам рынка труда</p>
+                    <form id="compareForm" class="compare-form">
+                        <input type="text" id="prof1" placeholder="Первая профессия" required aria-label="Первая профессия для сравнения">
+                        <span class="compare-vs">VS</span>
+                        <input type="text" id="prof2" placeholder="Вторая профессия" required aria-label="Вторая профессия для сравнения">
+                        <button type="submit" class="btn" style="grid-column: 1 / -1;">Сравнить</button>
+                    </form>
+                </div>
+
+                <div id="compareLoading" class="loading hidden">
+                    <div class="spinner"></div>
+                    <p>Собираем данные для сравнения...</p>
+                </div>
+
+                <div id="compareError" class="error hidden" role="alert"></div>
+
+                <div id="compareResults" class="hidden">
+                    <div class="table-wrap">
+                        <table class="compare-table" id="compareTable"></table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/main.js?v=3"></script>
+</body>
+</html>
